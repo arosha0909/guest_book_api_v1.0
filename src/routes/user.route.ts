@@ -1,4 +1,5 @@
 import { Express } from "express";
+import { GuestEp } from "../endpoint/guest.ep";
 import { UserEp } from "../endpoint/user.ep";
 
 export function initUserRoutes(app: Express) {
@@ -13,6 +14,8 @@ export function initUserRoutes(app: Express) {
     // AUTH ROUTES
     app.get('/api/auth/self', UserEp.getSelf);
     app.post('/api/auth/update-user', UserEp.updateUser);
+
+    app.get('/api/auth/get-all-guest', GuestEp.getAllGuest);
 
 
 

@@ -25,7 +25,7 @@ export namespace GuestEp {
 
 
 
-    export async function UploadGuest(req: Request, res: Response, next: NextFunction) {
+    export async function UpdateGuest(req: Request, res: Response, next: NextFunction) {
         const guest: DGuest = req.body;
         const updatingGuest: Partial<DGuest> = {};
 
@@ -65,7 +65,16 @@ export namespace GuestEp {
             updatingGuest.comment = guest.comment;
         }
 
-        const updatedGuest = await GuestDao.updatedGuest(req.body.id, updatingGuest);
+        const updatedGuest = await GuestDao.updatedGuest(req.user._id, updatingGuest);
         return updatedGuest;
+    }
+
+    export async function getAllGuest(req: Request, res: Response, next: NextFunction) {
+        try {
+            const allGuest = await GuestDao.allGuest();
+            return Util.sendSuccess(res, allGuest.map(e => e.toJSON()));
+        } catch (e) {
+            Util.sendError(res, e);
+        }
     }
 }

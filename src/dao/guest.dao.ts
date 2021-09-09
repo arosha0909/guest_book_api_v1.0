@@ -17,8 +17,14 @@ export namespace GuestDao {
 
     export async function updatedGuest(guestId: StringOrObjectId, data: Partial<DUser>): Promise<IGuest> {
         // @ts-ignore
-        const updatedGuest = await Guest.findByIdAndUpdate(Types.ObjectId(guestId), {'$set': data}, {new: true});
+        const updatedGuest = await Guest.findByIdAndUpdate(guestId,  data, {new: true});
         AppLogger.info(`update job guest for ID: ${updatedGuest.id}`);
         return updatedGuest;
+    }
+
+    export async function allGuest(): Promise<IGuest[]> {
+        const guest = await Guest.find();
+        AppLogger.info(`Got all Guest, total: ${guest.length}`);
+        return guest;
     }
 }

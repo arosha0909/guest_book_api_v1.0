@@ -48,7 +48,7 @@ export namespace UserEp {
     export async function updateUser(req: Request, res: Response, next: NextFunction) {
         switch (req.user.role) {
             case Role.GUEST:
-              await GuestEp.UploadGuest(req, res, next);
+              await GuestEp.UpdateGuest(req, res, next);
               break;
             default:
               Util.sendError(res, 'Unknown User Type');

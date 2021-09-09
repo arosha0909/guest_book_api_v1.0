@@ -1,6 +1,7 @@
 import {Express, Request, Response} from "express";
 import {Util} from "../common/util";
 import { initUserRoutes } from "./user.route";
+import { initUploadRoutes } from "./upload";
 
 export function initRoutes(app: Express) {
     /* TOP LEVEL */
@@ -8,7 +9,9 @@ export function initRoutes(app: Express) {
     // app.get('/api', (req: Request, res: Response) => Util.renderStaticPage(res, "./documentation/index.html"));
 
     initUserRoutes(app);
+    initUploadRoutes(app);
 
      /* ALL INVALID REQUESTS */
      app.all('*', (req: Request, res: Response) => Util.sendError(res, "Route Not Found"));
 }
+
