@@ -5,6 +5,7 @@ import { Validation } from "../common/validation";
 import { UserDao } from "../dao/user.dao";
 import { Role } from "../models/user.model";
 import { GuestEp } from "./guest.ep";
+import { Schema } from 'mongoose';
 
 export namespace UserEp {
     export function authValidationRules() {
@@ -42,5 +43,19 @@ export namespace UserEp {
         UserDao.getUserById(req.user._id).then(user => {
             Util.sendSuccess(res, user);
         }).catch(next);
+    }
+
+    export async function updateUser(req: Request, res: Response, next: NextFunction) {
+        switch (req.user.role) {
+            case Role.GUEST:
+              await GuestEp.UploadGuest(req, res, next);
+              break;
+            default:
+              Util.sendError(res, 'Unknown User Type');
+          }
+    }
+
+    export async function isEmailExists(req: Request, res: Response, next: NextFunction) {
+        UserDao.getUserByEmail(req.body.email).then(user => Util.sendSuccess(res, !!user)).catch(next);
     }
 }

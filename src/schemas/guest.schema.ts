@@ -9,7 +9,7 @@ export const Guest = User.discriminator<IGuest>('Guest',
     new mongoose.Schema({
         comment: {
             type: Schema.Types.ObjectId,
-            required: true,
+            required: false,
         }
     }, UserSchemaOptions), Role.GUEST);
 
