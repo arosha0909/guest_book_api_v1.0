@@ -1,7 +1,7 @@
 import * as mongoose from "mongoose";
 
 interface CommonAttributes {
-    rate: string;
+    rate: number;
     title: string;
     text: string;
     isActive?: boolean;
